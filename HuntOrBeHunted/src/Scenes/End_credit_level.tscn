@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/sprites/Scene/castle.jpg" type="Texture" id=1]
+[ext_resource path="res://src/Scenes/End_credit_level.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 197.75, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 5, 100 )
+
+[node name="EndScreen" type="Node2D"]
+position = Vector2( 444, 311 )
+script = ExtResource( 4 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -911.0
+margin_top = -421.0
+margin_right = 849.0
+margin_bottom = 569.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 0.160784, 0.12549, 0.12549, 1 )
+self_modulate = Color( 0.14902, 0.133333, 0.133333, 1 )
+margin_left = -84.0
+margin_top = -271.0
+margin_right = 36.0
+margin_bottom = -243.0
+text = "Vampire Wins!"
+align = 1
+valign = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( -28, -59 )
+collision_mask = 273
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -2, 25 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -1, -167 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -195, -70 )
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 199, -68 )
+shape = SubResource( 2 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

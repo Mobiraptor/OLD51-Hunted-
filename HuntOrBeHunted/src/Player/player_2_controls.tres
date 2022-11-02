@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/Player/PlayerControls.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+player_index = 2
+move_left = "move_left_2"
+move_right = "move_right_2"
+move_up = "move_up_2"
+move_down = "move_down_2"
+climb = "climb_2"
+attack = "attack_2"
+skill = "skill_2"

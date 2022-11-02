@@ -1,0 +1,22 @@
+[gd_scene format=2]
+
+[node name="PlayerViewport" type="ViewportContainer"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = -680.0
+margin_right = 11.0
+margin_bottom = -480.0
+rect_scale = Vector2( 1.8, 1.8 )
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 100, 200 )
+size_override_stretch = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="Viewport"]
+position = Vector2( 113, 513 )
+scale = Vector2( 0.917217, 0.917217 )
+offset = Vector2( 0, -5 )
+zoom = Vector2( 0.3, 0.3 )

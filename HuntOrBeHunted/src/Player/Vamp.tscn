@@ -1,0 +1,254 @@
+[gd_scene load_steps=37 format=2]
+
+[ext_resource path="res://assets/sprites/Vamp/Dodge/13.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/Vamp/Attack/8.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/15.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/Vamp/Run/5.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/Vamp/Attack/7.png" type="Texture" id=5]
+[ext_resource path="res://src/Player/Vamp.gd" type="Script" id=6]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/9.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/10.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/Vamp/Run/7.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/16.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/Vamp/Run/2.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/Vamp/Attack/11.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/Vamp/Attack/9.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/2.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/Vamp/Attack/5.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/Vamp/Attack/6.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/Vamp/Attack/10.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/Vamp/Attack/12.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/8.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/12.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/Vamp/Run/1.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/Vamp/Run/3.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/Vamp/Run/6.png" type="Texture" id=23]
+[ext_resource path="res://assets/sprites/Vamp/Attack/3.png" type="Texture" id=24]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/4.png" type="Texture" id=25]
+[ext_resource path="res://assets/sprites/Vamp/Run/4.png" type="Texture" id=26]
+[ext_resource path="res://assets/sprites/Vamp/Attack/4.png" type="Texture" id=27]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/7.png" type="Texture" id=28]
+[ext_resource path="res://assets/sprites/Vamp/Dodge/11.png" type="Texture" id=29]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 25.6875, 56.5 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 24 ), ExtResource( 27 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 13 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "Attack",
+"speed": 16.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 25 ), ExtResource( 28 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 29 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 29 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 29 ), ExtResource( 20 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 10 ) ],
+"loop": false,
+"name": "Dodge",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 11 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 4 ), ExtResource( 23 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Run",
+"speed": 28.0
+} ]
+
+[sub_resource type="Animation" id=6]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Attack" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Dodge"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "Dodge", "Idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Idle" ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Run"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Run" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 15, 56 )
+
+[node name="Vamp" type="KinematicBody2D"]
+position = Vector2( 114, 552 )
+collision_layer = 16
+collision_mask = 2147483666
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3.31252, -4.5 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 4.62502, -4.37497 )
+scale = Vector2( 0.150879, 0.150879 )
+frames = SubResource( 2 )
+animation = "Idle"
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Attack = SubResource( 6 )
+anims/Dodge = SubResource( 7 )
+anims/Idle = SubResource( 4 )
+anims/Run = SubResource( 3 )
+
+[node name="DodgeSkill" type="Node2D" parent="."]
+position = Vector2( -28, -69 )
+
+[node name="DodgeCDBar" type="ProgressBar" parent="DodgeSkill"]
+visible = false
+margin_left = -21.0
+margin_top = -19.0
+margin_right = 98.0
+margin_bottom = 3.0
+rect_pivot_offset = Vector2( 54, 69 )
+max_value = 5.0
+percent_visible = false
+
+[node name="DodgeLabel" type="Label" parent="DodgeSkill/DodgeCDBar"]
+margin_left = 5.0
+margin_top = 4.0
+margin_right = 115.0
+margin_bottom = 18.0
+text = "Dodge cool down"
+
+[node name="DodgeCDTimer" type="Timer" parent="DodgeSkill"]
+one_shot = true
+
+[node name="DodgeStateTimer" type="Timer" parent="DodgeSkill"]
+one_shot = true
+
+[node name="Attack" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 256
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack"]
+position = Vector2( 20, -5 )
+shape = SubResource( 5 )
+
+[node name="AttackTime" type="Timer" parent="Attack"]
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StunMSG" type="Label" parent="."]
+visible = false
+margin_left = -13.0
+margin_top = -107.0
+margin_right = 27.0
+margin_bottom = -93.0
+rect_pivot_offset = Vector2( 18, 107 )
+
+[node name="HungerBar" type="ProgressBar" parent="."]
+margin_left = -75.0
+margin_top = -146.0
+margin_right = 87.0
+margin_bottom = -124.0
+rect_pivot_offset = Vector2( 80, 146 )
+percent_visible = false
+
+[node name="Label" type="Label" parent="HungerBar"]
+margin_left = 44.0
+margin_top = 4.0
+margin_right = 90.0
+margin_bottom = 18.0
+text = "Hunger"
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Camera" type="Camera2D" parent="."]
+offset = Vector2( 0, -100 )
+zoom = Vector2( 0.4, 0.4 )
+
+[connection signal="timeout" from="DodgeSkill/DodgeCDTimer" to="." method="_on_DodgeCDTimer_timeout"]
+[connection signal="timeout" from="DodgeSkill/DodgeStateTimer" to="." method="_on_DodgeStateTimer_timeout"]
+[connection signal="body_entered" from="Attack" to="." method="_on_Attack_body_entered"]
+[connection signal="timeout" from="Attack/AttackTime" to="." method="_on_AttackTime_timeout"]

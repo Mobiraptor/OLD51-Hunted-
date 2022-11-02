@@ -1,0 +1,191 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Assets/sprites/knight/Run/Sword/2.png" type="Texture" id=1]
+[ext_resource path="res://Assets/sprites/knight/Run/Sword/5.png" type="Texture" id=2]
+[ext_resource path="res://Assets/sprites/knight/Run/Sword/3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/sprites/knight/Run/Sword/4.png" type="Texture" id=4]
+[ext_resource path="res://Assets/sprites/knight/Run/Sword/6.png" type="Texture" id=5]
+[ext_resource path="res://Assets/sprites/knight/Idle/Sword/Idle 2.png" type="Texture" id=7]
+[ext_resource path="res://Assets/sprites/knight/Idle/Sword/Idle 1.png" type="Texture" id=8]
+[ext_resource path="res://Assets/sprites/knight/Run/Sword/1.png" type="Texture" id=18]
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends KinematicBody2D
+
+class_name Player
+
+const SPEED := 200
+const JUMP_STRENGTH := -300.0
+
+var GRAVITY := 600
+var velocity = Vector2()
+
+var rotated = false
+var player_substate = \"idle\" 
+var player_index = 0
+
+var isRope = false
+var climbing = false
+
+export var controls:Resource = null
+
+onready var player :=$\".\"
+onready var animation := $AnimationPlayer
+onready var sprite := $AnimatedSprite
+
+func _ready():
+	velocity.y = 0
+	velocity.x = 0
+
+func _physics_process(delta):
+	if Input.is_action_just_pressed(controls.climb):
+		if climbing:
+			climbing = false
+		else:
+			if isRope:
+				climbing = true
+	
+	if not climbing:
+		_handle_movement(delta)
+	else:
+		_handle_climbing(delta)
+func _handle_movement(delta):
+	if player_substate == \"running\":
+		player_substate = \"idle\"
+		animation.play(\"Idle\")
+	velocity.x = 0
+	var x_input := Input.get_action_strength(controls.move_right) - Input.get_action_strength(controls.move_left)
+	var y_input := 0
+	
+	velocity.x += x_input * SPEED
+	velocity.y += GRAVITY * delta
+	
+	var vector_input := Vector2(x_input, y_input);
+	
+	if (vector_input.length() == 0) and (player_substate == \"idle\"):
+		velocity = move_and_slide(velocity, Vector2(0,-1))
+		return;	
+	
+	if player_substate==\"idle\": #in allowed_substates_run: #будет бежать, если не использует скилы кроме блока)
+		player_substate = \"running\"
+		animation.play(\"Run\")
+		
+	if (vector_input.x < 0 and !rotated):
+		rotated = true
+		scale.x = -scale.x
+	if (vector_input.x > 0 and rotated):
+		rotated = false
+		scale.x = -scale.x
+			
+	velocity = move_and_slide(velocity, Vector2(0,-1))
+	
+func _handle_climbing(delta):
+	if player_substate == \"running\":
+		player_substate = \"idle\"
+		animation.play(\"Idle\")
+	var x_input := Input.get_action_strength(controls.move_right) - Input.get_action_strength(controls.move_left)
+	var y_input := Input.get_action_strength(controls.move_down) - Input.get_action_strength(controls.move_up)
+	
+	velocity.x = 0
+	velocity.y = y_input * SPEED
+	
+	var vector_input := Vector2(x_input, y_input);
+	
+	if (vector_input.length() == 0):
+		return;	
+	
+	if (vector_input.x < 0 and !rotated):
+		rotated = true
+		scale.x = -scale.x
+	if (vector_input.x > 0 and rotated):
+		rotated = false
+		scale.x = -scale.x
+	
+	velocity = move_and_slide(velocity, Vector2(0,-1))
+	
+func getIsRope():
+	return isRope
+
+func setIsRope(newIsRope):
+	isRope = newIsRope
+"
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 2 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Run",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=4]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Idle" ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Run"
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Run" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22, 34.25 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 114, 552 )
+collision_layer = 16
+collision_mask = 3
+script = SubResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 4.62502, -4.37497 )
+scale = Vector2( 0.150879, 0.150879 )
+frames = SubResource( 2 )
+animation = "Idle"
+frame = 1
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 4 )
+anims/Run = SubResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.374977, -0.125 )
+shape = SubResource( 1 )
